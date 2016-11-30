@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"cd client && npm run client\"",
     "server": "babel-node server.js",
-    "client": "babel-node start-client.js"
+    "client": "babel-node start-client.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
   },

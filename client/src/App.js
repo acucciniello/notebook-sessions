@@ -20,12 +20,7 @@ var TextBox = React.createClass({
 
   render: function () {
     return <div className={'text-box'}>
-      <div>
-        <input type={this.props.type || 'text'} placeholder={this.props.placeholder} />
-        <div className='focus'>
-          <div></div>
-        </div>
-      </div>
+        <textarea type={this.props.type || 'text'} placeholder={this.props.placeholder} />
     </div>
   }
 })

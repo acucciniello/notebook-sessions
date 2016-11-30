@@ -1,19 +1,12 @@
 div.text-box {
   float:left;
-  display:block;
-  width:250px;
-  border:solid 1px #AAA;
   margin-right:15px;
   margin-top:10px;
 
-  div {
-    float:left;
-    width:100%;
-    text-align:inherit;
-
-    >input {
+    >textarea {
         float:left;
-        width:100%;
+        width:1000px;
+        height:250px;
         -webkit-appearance:none;
         text-align:inherit;
         padding:@spacing;
@@ -22,5 +15,4 @@ div.text-box {
         background:white;
         outline:none;
     }
-  }
 }
