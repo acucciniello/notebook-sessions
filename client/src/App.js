@@ -3,7 +3,7 @@ import './App.css'
 
 class App extends Component {
   render () {
-    return <div>
+    return <div className={'main-page'}>
       <TextBox placeholder='Write your thoughts here to clear your mind...' />
       <BoxButton type='button' value='Save Your Thoughts' name='Save Your Thoughts' />
     </div>
