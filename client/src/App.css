@@ -1,7 +1,8 @@
 div.main-page {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+}
+
 div.text-box {
   float:left;
   margin-right:15px;
@@ -21,6 +22,9 @@ div.text-box {
     }
 }
 div.box-button {
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
 
     >button {
       background-color: #4CAF50;
@@ -29,10 +33,7 @@ div.box-button {
       padding: 15px 32px;
       text-align: center;
       text-decoration: none;
-      display: flex;
-      font-size:  16px;
-      justify-content: right;
-    }
 
-}
+      font-size:  16px;
+    }
 }

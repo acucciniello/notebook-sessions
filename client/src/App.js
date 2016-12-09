@@ -4,8 +4,8 @@ import './App.css'
 class App extends Component {
   render () {
     return <div className={'main-page'}>
-      <TextBox placeholder='Write your thoughts here to clear your mind...' />
-      <BoxButton type='button' value='Save Your Thoughts' name='Save Your Thoughts' />
+      <TextBox id='ThoughtBox' placeholder='Write your thoughts here to clear your mind...' />
+      <BoxButton type='button' value='Save Your Thoughts' name='Save Your Thoughts' onClick='saveThoughts()' />
     </div>
   }
 }
@@ -13,9 +13,12 @@ class App extends Component {
 export default App
 
 var BoxButton = React.createClass({
+  saveThoughts: function () {
+    return console.log(document.getElementById('ThoughtBox').value)
+  },
   render: function () {
     return <div className={'box-button'}>
-      <button type={this.props.type} value={this.props.value} name={this.props.name}>
+      <button type={this.props.type} value={this.props.value} name={this.props.name} onClick={this.saveThoughts} >
       Save Your Thoughts
       </button>
     </div>
@@ -23,15 +26,9 @@ var BoxButton = React.createClass({
 })
 
 var TextBox = React.createClass({
-  getInitialState: function () {
-    return {
-      focused: false
-    }
-  },
-
   render: function () {
     return <div className={'text-box'}>
-      <textarea type={this.props.type || 'text'} placeholder={this.props.placeholder} />
+      <textarea type={this.props.type || 'text'} placeholder={this.props.placeholder} id={this.props.id} />
     </div>
   }
 })
