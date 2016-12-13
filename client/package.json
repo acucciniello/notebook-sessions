@@ -9,7 +9,6 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1"
   },
-  "proxy": "http://localhost:3001/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

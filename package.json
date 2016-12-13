@@ -2,7 +2,7 @@
   "name": "notebook-sessions",
   "version": "1.0.0",
   "description": "A Website to do free association writing for improved mindfulness",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "concurrently \"npm run server\" \"cd client && npm run client\"",
     "server": "babel-node server.js",
