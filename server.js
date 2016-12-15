@@ -5,7 +5,7 @@ var cors = require('cors')
 var bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({extended: false}))
-app.use(bodyParser.json())
+app.use(bodyParser.text())
 
 app.use(cors())
 
@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
   var thought = req.body.text
   // console.log(req)
-  console.log('We have received this from the client:' + req.body)
+  console.log('We have received this from the client:' + thought)
   // res.end('done')
 })
 
