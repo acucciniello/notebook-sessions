@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/acucciniello/notebook-sessions#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0"
   },
   "devDependencies": {

@@ -14,7 +14,11 @@ export default App
 
 var BoxButton = React.createClass({
   saveThoughts: function () {
-    return console.log(document.getElementById('ThoughtBox').value)
+    var text = document.getElementById('ThoughtBox').value
+    var xhr = new window.XMLHttpRequest()
+    xhr.open('POST', 'http://localhost:3000', true)
+    xhr.send(text)
+    return console.log(text)
   },
   render: function () {
     return <div className={'box-button'}>
@@ -32,3 +36,4 @@ var TextBox = React.createClass({
     </div>
   }
 })
+
