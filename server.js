@@ -17,9 +17,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
   var thought = req.body.text
-  // console.log(req)
   console.log('We have received this from the client:' + thought)
-  // res.end('done')
 })
 
 app.listen(3000, function () {
