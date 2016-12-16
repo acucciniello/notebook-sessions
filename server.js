@@ -3,6 +3,11 @@ const app = express()
 const path = require('path')
 var cors = require('cors')
 var bodyParser = require('body-parser')
+// var pg = require('pg')
+// var format = require('pg-format')
+// var client = new pg.Client()
+// var getTimeStamp = require('./get-timestamp.js')
+// var timestamp = getTimeStamp
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.text())
@@ -17,7 +22,18 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
   var thought = req.body.text
-  console.log('We have received this from the client:' + thought)
+  // var thought = 'cool stuff'
+  console.log('We received this from the client: ' + thought)
+  /* client.connect(function (err) {
+    if (err) throw err
+    var textToDB = format('INSERT INTO thoughtentries (date, thought) VALUES(%L, %L);', timestamp, thought)
+    client.query(textToDB, function (err, result) {
+      if (err) throw err
+      console.log(result.rows[0])
+      client.end(function (err) {
+        if (err) throw err
+      })
+    }) */
 })
 
 app.listen(3000, function () {
