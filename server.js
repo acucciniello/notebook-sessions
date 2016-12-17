@@ -21,22 +21,23 @@ app.get('/', function (req, res) {
 })
 
 app.post('/', function (req, res) {
-  var thought = req.body.text
-  // var thought = 'cool stuff'
+  var thought = req.body
+  res.end('done')
   console.log('We received this from the client: ' + thought)
   /* client.connect(function (err) {
     if (err) throw err
-    var textToDB = format('INSERT INTO thoughtentries (date, thought) VALUES(%L, %L);', timestamp, thought)
+    var textToDB = format('INSERT INTO thoughtentries VALUES(%L, %L)', timestamp, thought)
     client.query(textToDB, function (err, result) {
       if (err) throw err
       console.log(result.rows[0])
       client.end(function (err) {
         if (err) throw err
       })
-    }) */
+    })
+  }) */
+  return
 })
 
 app.listen(3000, function () {
   console.log('listening on 3000')
 })
-
