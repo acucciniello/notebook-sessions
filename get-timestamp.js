@@ -19,6 +19,6 @@ function getTimestamp () {
     minutes = '0' + minutes
   }
 
-  timestamp = month + '/' + day + '/' + year + ' ' + hour + ':' + minutes
+  timestamp = "'" + month + '/' + day + '/' + year + ' ' + hour + ':' + minutes + "'"
   return timestamp
 }

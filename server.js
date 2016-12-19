@@ -3,11 +3,25 @@ const app = express()
 const path = require('path')
 var cors = require('cors')
 var bodyParser = require('body-parser')
-// var pg = require('pg')
-// var format = require('pg-format')
-// var client = new pg.Client()
-// var getTimeStamp = require('./get-timestamp.js')
-// var timestamp = getTimeStamp
+var pg = require('pg')
+var format = require('pg-format')
+var getTimeStamp = require('./get-timestamp.js')
+var timestamp = getTimeStamp()
+var thought
+var config = {
+  user: process.env.PGUSER,
+  database: process.env.PGDATABASE,
+  max: 10, // max number of clients in the pool
+  idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
+}
+var pool = new pg.Pool(config)
+
+pool.connect(function (err, client, done) {
+  if (err) console.log(err)
+  app.listen(3000, function () {
+    console.log('listening on 3000')
+  })
+})
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.text())
@@ -21,23 +35,19 @@ app.get('/', function (req, res) {
 })
 
 app.post('/', function (req, res) {
-  var thought = req.body
+  thought = req.body
+  thought = "'" + thought + "'"
   res.end('done')
   console.log('We received this from the client: ' + thought)
-  /* client.connect(function (err) {
-    if (err) throw err
-    var textToDB = format('INSERT INTO thoughtentries VALUES(%L, %L)', timestamp, thought)
-    client.query(textToDB, function (err, result) {
+  var textToDB = format('INSERT INTO thoughtentries VALUES(%s, %s);', timestamp, thought)
+  client.query(textToDB, function (err, result) {
+    if (err) {
+      console.log(err)
+    }
+    console.log(result)
+    client.end(function (err) {
       if (err) throw err
-      console.log(result.rows[0])
-      client.end(function (err) {
-        if (err) throw err
-      })
     })
-  }) */
+  })
   return
-})
-
-app.listen(3000, function () {
-  console.log('listening on 3000')
 })
