@@ -15,12 +15,14 @@ var config = {
   idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
 }
 var pool = new pg.Pool(config)
+var myClient
 
 pool.connect(function (err, client, done) {
   if (err) console.log(err)
   app.listen(3000, function () {
     console.log('listening on 3000')
   })
+  myClient = client
 })
 
 app.use(bodyParser.urlencoded({extended: false}))
@@ -40,12 +42,12 @@ app.post('/', function (req, res) {
   res.end('done')
   console.log('We received this from the client: ' + thought)
   var textToDB = format('INSERT INTO thoughtentries VALUES(%s, %s);', timestamp, thought)
-  client.query(textToDB, function (err, result) {
+  myClient.query(textToDB, function (err, result) {
     if (err) {
       console.log(err)
     }
     console.log(result)
-    client.end(function (err) {
+    myClient.end(function (err) {
       if (err) throw err
     })
   })
