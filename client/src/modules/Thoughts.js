@@ -3,10 +3,11 @@ import './Thoughts.css'
 
 export default class Thoughts extends Component {
   render () {
-    return <div className={'main-page'}>
+    return (<div className={'main-page'}>
       <TextBox id='ThoughtBox' placeholder='Write your thoughts here to clear your mind...' />
       <BoxButton type='button' value='Save Your Thoughts' name='Save Your Thoughts' onClick='saveThoughts()' />
     </div>
+    )
   }
 }
 

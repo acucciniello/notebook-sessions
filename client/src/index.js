@@ -1,9 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
-import './index.css'
+import { render } from 'react-dom'
+import Thoughts from './modules/Thoughts'
+import { Router, Route, hashHistory } from 'react-router'
+import Login from './modules/Login'
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-)
+render((<Router history={hashHistory}>
+  <Route path='/' component={Thoughts} />
+  <Route path='/login' component={Login} />
+</Router>
+), document.getElementById('root'))

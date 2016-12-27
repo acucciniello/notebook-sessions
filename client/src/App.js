@@ -9,3 +9,4 @@ render((<Router history={hashHistory}>
   <Route path='/login' component={Login} />
 </Router>
 ), document.getElementById('root'))
+
