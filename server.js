@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -36,12 +37,19 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 
+app.post('/#/login', function (req, res) {
+  var signIn = req.body
+  res.end('done')
+  console.log('We received this from the client: ' + signIn)
+  return
+})
+
 app.post('/', function (req, res) {
   thought = req.body
   thought = "'" + thought + "'"
   res.end('done')
   console.log('We received this from the client: ' + thought)
-  var textToDB = format('INSERT INTO thoughtentries VALUES(%s, %s);', timestamp, thought)
+  var textToDB = format('INSERT INTO thoughtentries VALUES(%s, %s, %L);', timestamp, thought, 1234546)
   myClient.query(textToDB, function (err, result) {
     if (err) {
       console.log(err)
