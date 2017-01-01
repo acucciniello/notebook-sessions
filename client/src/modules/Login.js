@@ -24,19 +24,20 @@ var InputBox = React.createClass({
 var SubmitButton = React.createClass({
   signIn: function () {
   	var logInInfo = {
-    email: ' ',
-  	  password: ' '
+    'email': ' ',
+  	  'password': ' '
   	}
     logInInfo.email = document.getElementById('email').value
     logInInfo.password = document.getElementById('password').value
     var xhr = new window.XMLHttpRequest()
-    xhr.open('POST', 'http://localhost:3000/#/login', true)
-    xhr.send(logInInfo)
+    xhr.open('POST', '/login', true)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.send(JSON.stringify(logInInfo))
     return console.log(logInInfo)
   },
   render: function () {
   	return <div className={'submit-button'}>
-  	                                          <button type={this.props.type} value={this.props.value} name={this.props.name} onClick={this.signIn} >
+  	                                                                                                      <button type={this.props.type} value={this.props.value} name={this.props.name} onClick={this.signIn} >
         Sign In
   </button>
   </div>
