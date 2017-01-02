@@ -42,12 +42,12 @@ app.post('/login', jsonParser, function (req, res) {
   var password = req.body.password
   res.end('done')
   console.log('We received this from the client: ' + email + ' ' + password)
-  var checkEmailInfo = format('SELECT * from accounts WHERE email = %s AND password = %s', email, password)
+  var checkEmailInfo = format('SELECT * from accounts WHERE email = %L AND password = %L', email, password)
   myClient.query(checkEmailInfo, function (err, result) {
     if (err) {
       console.log(err)
     }
-    console.log(result)
+    console.log(result.rows[0].userid)
     myClient.end(function (err) {
       if (err) throw err
     })
