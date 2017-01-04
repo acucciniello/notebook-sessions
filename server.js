@@ -58,7 +58,6 @@ app.post('/login', jsonParser, function (req, res) {
 app.post('/signup', jsonParser, function (req, res) {
   var email = req.body.email
   var password = req.body.password
-  res.end('done')
   console.log('We received this from the client: ' + email + ' ' + password)
   var checkEmailInfo = format('SELECT * from accounts WHERE email = %L AND password = %L', email, password)
   myClient.query(checkEmailInfo, function (err, result) {
@@ -67,14 +66,18 @@ app.post('/signup', jsonParser, function (req, res) {
     }
     if (result.rows[0] === undefined) {
       console.log('the user does not exist need to add user')
-      var addUser = format('INSERT INTO accounts VALUES(%L, %L, %L);', email, password, 234767)
+      var addUser = format('INSERT INTO accounts VALUES(%L, %L);', email, password)
       myClient.query(addUser, function (err, result) {
         if (err) {
           console.log(err)
         }
         console.log(result)
       })
+    } else {
+      console.log('There is an account that exists with the email provided')
+      return res.json({ error: 'There is an account that already exists with the email provided' })
     }
+    res.end('done')
     myClient.end(function (err) {
       if (err) throw err
     })
