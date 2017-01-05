@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import InputBox from './components/input-box'
 
 export default class Login extends Component {
   render () {
@@ -13,20 +14,12 @@ export default class Login extends Component {
   }
 }
 
-var InputBox = React.createClass({
-  render: function () {
-    return <div className={'input-field'}>
-      <input type={this.props.type} value={this.props.value} name={this.props.name} id={this.props.id} />
-    </div>
-  }
-})
-
 var SubmitButton = React.createClass({
   signIn: function () {
-  	var logInInfo = {
-    'email': ' ',
-  	  'password': ' '
-  	}
+    var logInInfo = {
+      'email': ' ',
+      'password': ' '
+    }
     logInInfo.email = document.getElementById('email').value
     logInInfo.password = document.getElementById('password').value
     var xhr = new window.XMLHttpRequest()
@@ -36,10 +29,10 @@ var SubmitButton = React.createClass({
     return console.log(logInInfo)
   },
   render: function () {
-  	return <div className={'submit-button'}>
-  	                                                                                                      <button type={this.props.type} value={this.props.value} name={this.props.name} onClick={this.signIn} >
+    return <div className={'submit-button'}>
+      <button type={this.props.type} value={this.props.value} name={this.props.name} onClick={this.signIn} >
         Sign In
-  </button>
-  </div>
+      </button>
+    </div>
   }
 })

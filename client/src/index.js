@@ -6,8 +6,8 @@ import Login from './modules/Login'
 import SignUp from './modules/SignUp'
 
 render((<Router history={hashHistory}>
-  <Route path='/' component={Thoughts} />
+  <Route path='/thoughts' component={Thoughts} />
   <Route path='/login' component={Login} />
-  <Route path='/signup' component={SignUp} />
+  <Route path='/' component={SignUp} />
 </Router>
 ), document.getElementById('root'))
