@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import TextBox from './components/text-box.js'
 import './Thoughts.css'
 
 export default class Thoughts extends Component {
@@ -27,12 +28,3 @@ var BoxButton = React.createClass({
     </div>
   }
 })
-
-var TextBox = React.createClass({
-  render: function () {
-    return <div className={'text-box'}>
-      <textarea type={this.props.type || 'text'} placeholder={this.props.placeholder} id={this.props.id} />
-    </div>
-  }
-})
-
