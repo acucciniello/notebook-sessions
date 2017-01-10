@@ -63,25 +63,7 @@ app.post('/login', jsonParser, function (req, res) {
   return
 })
 
-app.post('/thoughts', textParser, function (req, res) {
-  thought = req.body
-  thought = "'" + thought + "'"
-  res.end('done')
-  console.log('We received this from the client: ' + thought)
-  var textToDB = format('INSERT INTO thoughtentries VALUES(%s, %s, %L);', timestamp, thought, 1234546)
-  myClient.query(textToDB, function (err, result) {
-    if (err) {
-      console.log(err)
-    }
-    console.log(result)
-    myClient.end(function (err) {
-      if (err) throw err
-    })
-  })
-  return
-})
-
-app.post('/', jsonParser, function (req, res) {
+app.post('/signup', jsonParser, function (req, res) {
   var email = req.body.email
   var password = req.body.password
   console.log('We received this from the client: ' + email + ' ' + password)
@@ -117,3 +99,39 @@ app.post('/', jsonParser, function (req, res) {
   return
 })
 
+app.use('/thoughts', function (req, res, next) {
+  var token = req.body.token || req.query.token || req.headers['x-access-token']
+  if (token) {
+    jwt.verify(token, app.get('superSecret'), function (err, decoded) {
+      if (err) {
+        return res.json({success: false, message: 'Failed to authenticate token.'})
+      } else {
+        req.decoded = decoded
+        next()
+      }
+    })
+  } else {
+    return res.status(403).send({
+      success: false,
+      message: 'No token provided.'
+    })
+  }
+})
+
+app.post('/thoughts', textParser, function (req, res, next) {
+  thought = req.body
+  thought = "'" + thought + "'"
+  res.end('done')
+  console.log('We received this from the client: ' + thought)
+  var textToDB = format('INSERT INTO thoughtentries VALUES(%s, %s, %L);', timestamp, thought, 1234546)
+  myClient.query(textToDB, function (err, result) {
+    if (err) {
+      console.log(err)
+    }
+    console.log(result)
+    myClient.end(function (err) {
+      if (err) throw err
+    })
+  })
+  return
+})

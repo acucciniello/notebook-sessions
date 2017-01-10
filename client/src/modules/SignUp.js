@@ -19,11 +19,19 @@ var SubmitButton = React.createClass({
       'email': ' ',
       'password': ' '
     }
+    var token = ''
     signUpInfo.email = document.getElementById('email').value
     signUpInfo.password = document.getElementById('password').value
     var xhr = new window.XMLHttpRequest()
-    xhr.open('POST', '/', true)
+    xhr.open('POST', '/signup', true)
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        token = JSON.parse(this.responseText).token
+        sessionStorage.setItem('token', token)
+      }
+      return
+    }
     xhr.send(JSON.stringify(signUpInfo))
     return console.log(signUpInfo)
   },

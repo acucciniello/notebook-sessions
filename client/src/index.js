@@ -8,6 +8,6 @@ import SignUp from './modules/SignUp'
 render((<Router history={hashHistory}>
   <Route path='/thoughts' component={Thoughts} />
   <Route path='/login' component={Login} />
-  <Route path='/' component={SignUp} />
+  <Route path='/signup' component={SignUp} />
 </Router>
 ), document.getElementById('root'))
