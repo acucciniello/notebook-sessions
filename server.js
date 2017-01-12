@@ -10,7 +10,7 @@ var jwt = require('jsonwebtoken')
 var getTimeStamp = require('./get-timestamp.js')
 var timestamp = getTimeStamp()
 var jsonParser = bodyParser.json()
-var textParser = bodyParser.text()
+// var textParser = bodyParser.text()
 var thought
 var config = {
   user: process.env.PGUSER,
@@ -56,9 +56,9 @@ app.post('/login', jsonParser, function (req, res) {
       token: token
     })
     res.end('done')
-    myClient.end(function (err) {
+    /* myClient.end(function (err) {
       if (err) throw err
-    })
+    }) */
   })
   return
 })
@@ -92,15 +92,17 @@ app.post('/signup', jsonParser, function (req, res) {
       console.log('There is an account that exists with the email provided')
       return res.json({ error: 'There is an account that already exists with the email provided' })
     }
-    myClient.end(function (err) {
+    /* myClient.end(function (err) {
       if (err) throw err
-    })
+    }) */
   })
   return
 })
 
-app.use('/thoughts', function (req, res, next) {
-  var token = req.body.token || req.query.token || req.headers['x-access-token']
+/* app.use('/thoughts', jsonParser, function (req, res, next) {
+  console.log('we in here')
+  var token = req.body.token
+  console.log(token)
   if (token) {
     jwt.verify(token, app.get('superSecret'), function (err, decoded) {
       if (err) {
@@ -116,10 +118,30 @@ app.use('/thoughts', function (req, res, next) {
       message: 'No token provided.'
     })
   }
-})
+}) */
 
-app.post('/thoughts', textParser, function (req, res, next) {
-  thought = req.body
+app.post('/thoughts', jsonParser, function (req, res, next) {
+  var token = req.body.token
+  if (token) {
+    console.log('about to verify the token')
+    jwt.verify(token, app.get('superSecret'), function (err, decoded) {
+      if (err) {
+        console.log('token failed to verify')
+        return res.json({success: false, message: 'Failed to authenticate token.'})
+      } else {
+        req.decoded = decoded
+        console.log(req.decoded)
+        next()
+      }
+    })
+  } else {
+    console.log('no token')
+    return res.status(403).send({
+      success: false,
+      message: 'No token provided.'
+    })
+  }
+  thought = req.body.text
   thought = "'" + thought + "'"
   res.end('done')
   console.log('We received this from the client: ' + thought)
@@ -129,9 +151,9 @@ app.post('/thoughts', textParser, function (req, res, next) {
       console.log(err)
     }
     console.log(result)
-    myClient.end(function (err) {
+    /* myClient.end(function (err) {
       if (err) throw err
-    })
+    }) */
   })
   return
 })

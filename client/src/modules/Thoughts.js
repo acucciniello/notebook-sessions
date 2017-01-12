@@ -17,13 +17,19 @@ export default class Thoughts extends Component {
 
 var BoxButton = React.createClass({
   saveThoughts: function () {
-    var text = document.getElementById('ThoughtBox').value
+    var data = {
+      'token': '',
+      'text': ''
+    }
+    data.text = document.getElementById('ThoughtBox').value
+    console.log(data.text)
+    data.token = window.sessionStorage.getItem('token')
+    console.log(data.token)
     var xhr = new window.XMLHttpRequest()
-
-    console.log(token)
     xhr.open('POST', '/thoughts', true)
-    xhr.send(text)
-    return console.log(text)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xhr.send(JSON.stringify(data))
+    return console.log(data.text)
   },
   render: function () {
     return <div className={'box-button'}>
