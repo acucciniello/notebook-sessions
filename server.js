@@ -48,11 +48,13 @@ app.post('/login', jsonParser, function (req, res) {
     if (err) {
       console.log(err)
     }
-    console.log(result.rows[0].userid)
+    var uid = result.rows[0].userid
+    console.log(uid)
     var token = jwt.sign(req.body, app.get('superSecret'))
     res.json({
       success: true,
       message: 'Enjoy your token',
+      userid: uid,
       token: token
     })
     res.end('done')
@@ -79,14 +81,23 @@ app.post('/signup', jsonParser, function (req, res) {
         if (err) {
           console.log(err)
           res.end('done')
+        } else {
+          var pullUID = format('SELECT * from accounts WHERE email = %L AND password = %L', email, password)
+          myClient.query(pullUID, function (err, result) {
+            if (err) {
+              res.end('done')
+            } else {
+              var uid = result.rows[0].userid
+              var token = jwt.sign(req.body, app.get('superSecret'))
+              return res.json({
+                success: true,
+                message: 'Enjoy your token',
+                userid: uid,
+                token: token
+              })
+            }
+          })
         }
-        console.log(result)
-        var token = jwt.sign(req.body, app.get('superSecret'))
-        return res.json({
-          success: true,
-          message: 'Enjoy your token',
-          token: token
-        })
       })
     } else {
       console.log('There is an account that exists with the email provided')

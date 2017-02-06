@@ -21,6 +21,7 @@ var SubmitButton = React.createClass({
       'password': ' '
     }
     var token = ''
+    var uid = ''
     logInInfo.email = document.getElementById('email').value
     logInInfo.password = document.getElementById('password').value
     var xhr = new window.XMLHttpRequest()
@@ -28,8 +29,11 @@ var SubmitButton = React.createClass({
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
     xhr.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
+        console.log(this.responseText)
         token = JSON.parse(this.responseText).token
-        sessionStorage.setItem('token', token)
+        uid = JSON.parse(this.responseText).userid
+        window.sessionStorage.setItem('token', token)
+        window.sessionStorage.setItem('userid', uid)
       }
       return
     }
