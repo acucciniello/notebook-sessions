@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import InputBox from './components/input-box'
+import { browserHistory } from 'react-router'
 
 export default class SignUp extends Component {
   render () {
@@ -32,6 +33,10 @@ var SubmitButton = React.createClass({
         uid = JSON.parse(this.responseText).userid
         window.sessionStorage.setItem('token', token)
         window.sessionStorage.setItem('userid', uid)
+        if (token !== undefined && uid !== undefined) {
+          const path = 'http://localhost:3000/thoughts'
+          browserHistory.push(path)
+        }
       }
       return
     }

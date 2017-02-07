@@ -35,7 +35,7 @@ app.set('superSecret', process.env.SECRET)
 
 app.use(express.static('client/build'))
 
-app.get('/', function (req, res) {
+app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 
@@ -47,22 +47,19 @@ app.post('/login', jsonParser, function (req, res) {
   myClient.query(checkEmailInfo, function (err, result) {
     if (err) {
       console.log(err)
+    } else if (result.rowCount === 1) {
+      console.log(result)
+      var uid = result.rows[0].userid
+      var token = jwt.sign(req.body, app.get('superSecret'))
+      return res.json({
+        success: true,
+        message: 'Enjoy your token',
+        userid: uid,
+        token: token
+      })
     }
-    var uid = result.rows[0].userid
-    console.log(uid)
-    var token = jwt.sign(req.body, app.get('superSecret'))
-    res.json({
-      success: true,
-      message: 'Enjoy your token',
-      userid: uid,
-      token: token
-    })
-    res.end('done')
-    /* myClient.end(function (err) {
-      if (err) throw err
-    }) */
+    return res.end('done')
   })
-  return
 })
 
 app.post('/signup', jsonParser, function (req, res) {
@@ -103,33 +100,9 @@ app.post('/signup', jsonParser, function (req, res) {
       console.log('There is an account that exists with the email provided')
       return res.json({ error: 'There is an account that already exists with the email provided' })
     }
-    /* myClient.end(function (err) {
-      if (err) throw err
-    }) */
   })
   return
 })
-
-/* app.use('/thoughts', jsonParser, function (req, res, next) {
-  console.log('we in here')
-  var token = req.body.token
-  console.log(token)
-  if (token) {
-    jwt.verify(token, app.get('superSecret'), function (err, decoded) {
-      if (err) {
-        return res.json({success: false, message: 'Failed to authenticate token.'})
-      } else {
-        req.decoded = decoded
-        next()
-      }
-    })
-  } else {
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    })
-  }
-}) */
 
 app.post('/thoughts', jsonParser, function (req, res, next) {
   var token = req.body.token
@@ -164,9 +137,6 @@ app.post('/thoughts', jsonParser, function (req, res, next) {
       console.log(err)
     }
     console.log(result)
-    /* myClient.end(function (err) {
-      if (err) throw err
-    }) */
   })
   return
 })
