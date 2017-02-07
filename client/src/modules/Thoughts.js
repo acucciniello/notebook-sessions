@@ -19,12 +19,12 @@ var BoxButton = React.createClass({
   saveThoughts: function () {
     var data = {
       'token': '',
-      'text': ''
+      'text': '',
+      'userid': ''
     }
     data.text = document.getElementById('ThoughtBox').value
-    console.log(data.text)
     data.token = window.sessionStorage.getItem('token')
-    console.log(data.token)
+    data.userid = window.sessionStorage.getItem('userid')
     var xhr = new window.XMLHttpRequest()
     xhr.open('POST', '/thoughts', true)
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')

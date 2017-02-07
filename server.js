@@ -133,6 +133,7 @@ app.post('/signup', jsonParser, function (req, res) {
 
 app.post('/thoughts', jsonParser, function (req, res, next) {
   var token = req.body.token
+  var userid = req.body.userid
   if (token) {
     console.log('about to verify the token')
     jwt.verify(token, app.get('superSecret'), function (err, decoded) {
@@ -156,7 +157,8 @@ app.post('/thoughts', jsonParser, function (req, res, next) {
   thought = "'" + thought + "'"
   res.end('done')
   console.log('We received this from the client: ' + thought)
-  var textToDB = format('INSERT INTO thoughtentries VALUES(%s, %s, %L);', timestamp, thought, 1234546)
+  console.log(userid)
+  var textToDB = format('INSERT INTO thoughtentries VALUES(%s, %s, %s);', timestamp, thought, userid)
   myClient.query(textToDB, function (err, result) {
     if (err) {
       console.log(err)
