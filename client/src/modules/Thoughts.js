@@ -12,9 +12,6 @@ export default class Thoughts extends Component {
   }
 }
 
-// Need a function for when you are trying to access this page, send the token to the server to authenticatie
-// var token = sessionStorage.getItem('token')
-
 var BoxButton = React.createClass({
   saveThoughts: function () {
     var data = {
