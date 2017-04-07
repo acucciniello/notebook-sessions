@@ -33,15 +33,16 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(cors())
 app.set('superSecret', process.env.SECRET)
 
-app.use(express.static('client/build'))
+app.use(express.static('browser'))
 
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/client/build/index.html'))
+  res.sendFile(path.join(__dirname, '/browser/index.html'))
 })
 
 app.post('/login', jsonParser, function (req, res) {
   var email = req.body.email
   var password = req.body.password
+  console.log(req)
   console.log('We received this from the client: ' + email + ' ' + password)
   var checkEmailInfo = format('SELECT * from accounts WHERE email = %L AND password = %L', email, password)
   myClient.query(checkEmailInfo, function (err, result) {

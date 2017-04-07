@@ -2,6 +2,7 @@
 
 // var h = require('virtual-dom/h')
 
+var login = require('./login-function.js')
 module.exports = {
   render: RenderLogin
 }
@@ -27,8 +28,8 @@ function RenderLogin (h) {
   var submitButton = h('button', {
     type: 'button',
     value: 'Log In',
-    onclick: function login (event) {
-      console.log('We pressed the button')
+    onclick: function () {
+      login()
     },
     style: {
       display: 'block'
