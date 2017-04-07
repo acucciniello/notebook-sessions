@@ -38,3 +38,6 @@ jspm_packages
 
 # Environment Variables
 .env
+
+# Bundle.js
+browser/bundle.js
