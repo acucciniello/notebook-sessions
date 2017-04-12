@@ -1,16 +1,16 @@
 var xhr = require('xhr')
-module.exports = loginFunction
+module.exports = signupFunction
 
-function loginFunction () {
-  var logInInfo = {
+function signupFunction () {
+  var singUpInfo = {
     'email': ' ',
     'password': ' '
   }
   var token = ''
   var uid = ''
-  logInInfo.email = document.getElementById('email').value
-  logInInfo.password = document.getElementById('password').value
-  xhr.post('/login', {json: logInInfo}, function (err, resp) {
+  singUpInfo.email = document.getElementById('email').value
+  singUpInfo.password = document.getElementById('password').value
+  xhr.post('/signup', {json: singUpInfo}, function (err, resp) {
     if (err) {
       console.log(err)
     }
