@@ -132,7 +132,7 @@ app.post('/thoughts', jsonParser, function (req, res, next) {
   res.end('done')
   console.log('We received this from the client: ' + thought)
   console.log(userid)
-  var textToDB = format('INSERT INTO thoughtentries VALUES(%s, %s, %s);', timestamp, thought, userid)
+  var textToDB = format('INSERT INTO thoughts VALUES(%s, %s, %s);', timestamp, thought, userid)
   myClient.query(textToDB, function (err, result) {
     if (err) {
       console.log(err)

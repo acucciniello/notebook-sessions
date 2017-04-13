@@ -16,7 +16,7 @@ if (document.location.href === 'http://localhost:3000/login') {
   tree = signupRoute.fn(h)
   rootNode = createElement(tree)
   document.body.appendChild(rootNode)
-} else if (document.location.href === 'http://localhost:3000/signup') {
+} else if (document.location.href === 'http://localhost:3000/thoughts') {
   var thoughtsRoute = router.match('/thoughts')
   console.log(thoughtsRoute.route)
   tree = thoughtsRoute.fn(h)
