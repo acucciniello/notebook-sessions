@@ -16,7 +16,7 @@ function RenderThoughts (h) {
     style: {
       display: 'block'
     }
-  }, 'ThoughtBox')
+  })
   var submitButton = h('button', {
     type: 'button',
     value: 'Save Your Thoughts',
