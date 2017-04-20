@@ -1,28 +1,13 @@
-var router = require('../client/router/router.js')
-var createElement = require('virtual-dom/create-element')
-var h = require('virtual-dom/h')
-
-console.log(document.location.href)
-
-if (document.location.href === 'http://localhost:3000/login') {
-  var loginRoute = router.match('/login')
-  console.log(loginRoute.route)
-  var tree = loginRoute.fn(h)
-  var rootNode = createElement(tree)
-  document.body.appendChild(rootNode)
-} else if (document.location.href === 'http://localhost:3000/signup') {
-  var signupRoute = router.match('/signup')
-  console.log(signupRoute.route)
-  tree = signupRoute.fn(h)
-  rootNode = createElement(tree)
-  document.body.appendChild(rootNode)
-} else if (document.location.href === 'http://localhost:3000/thoughts') {
-  var thoughtsRoute = router.match('/thoughts')
-  console.log(thoughtsRoute.route)
-  tree = thoughtsRoute.fn(h)
-  rootNode = createElement(tree)
-  document.body.appendChild(rootNode)
-} else {
-  console.log('404')
+// get the main div from 'cf-app'
+var mountLocation = document.getElementById('cf-app')
+// if it isnt there lets create it
+if (!mountLocation) {
+  mountLocation = document.createElement('div')
+  mountLocation.id = 'cf-app'
+  document.body.appendChild(mountLocation)
 }
 
+// requires cf-web-app.element
+var cfAppElement = require('../app/cf-web-app.js')().element
+// places it before the first child in mountLocation
+mountLocation.insertBefore(cfAppElement, mountLocation.children[0])
