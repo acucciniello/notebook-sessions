@@ -1,13 +1,13 @@
-// var style = require('./login_style.js')
-
-// var h = require('virtual-dom/h')
-
+var style = require('./signup_style.js')
 var signup = require('./signup-function.js')
 module.exports = {
   render: RenderSignup
 }
 
-function RenderSignup (h) {
+function RenderSignup (h, state) {
+  console.log(state)
+  console.log('state in signup render')
+  var signupStyle = style[state.viewport] || style.base
   // create two text areas and a button in a div
   var emailBox = h('input', {
     type: 'text',
@@ -29,7 +29,7 @@ function RenderSignup (h) {
     type: 'button',
     value: 'Sign Up',
     onclick: function () {
-      signup()
+      signup(state)
     },
     style: {
       display: 'block'
@@ -37,7 +37,8 @@ function RenderSignup (h) {
   }, 'Sign Up')
 
   var renderedSignup = h('div', {
-    className: 'signup-box'
+    className: 'signup-box',
+    style: signupStyle
   }, [emailBox, passwordBox, submitButton])
   return renderedSignup
 }

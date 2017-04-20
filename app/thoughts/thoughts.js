@@ -1,14 +1,12 @@
-// var style = require('./login_style.js')
-
-// var h = require('virtual-dom/h')
-
+var style = require('./thoughts_style.js')
 var sendThoughts = require('./thoughts-function.js')
 module.exports = {
   render: RenderThoughts
 }
 
-function RenderThoughts (h) {
-  // create two text areas and a button in a div
+function RenderThoughts (h, state) {
+  var thoughtsStyle = style[state.viewport] || style.base
+
   var ThoughtBox = h('textarea', {
     type: 'text',
     id: 'ThoughtBox',
@@ -30,13 +28,8 @@ function RenderThoughts (h) {
   }, 'Save Thought')
 
   var renderedThoughts = h('div', {
-    className: 'thoughts-page'
+    className: 'thoughts-page',
+    style: thoughtsStyle
   }, [ThoughtBox, submitButton])
   return renderedThoughts
 }
-
-/*
-function login (event) {
-  console.log('we signed in')
-}*/
-

@@ -20,4 +20,3 @@ ThoughtsStyle.wall = extend(ThoughtsStyle.desk, {
 })
 
 module.exports = ThoughtsStyle
-
