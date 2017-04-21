@@ -7,6 +7,7 @@ module.exports = {
 
 function RenderLogin (h, state) {
   var loginStyle = style[state.viewport] || style.base
+  var LoginEmitter = state.emitters.login
   // create two text areas and a button in a div
   var emailBox = h('input', {
     type: 'text',
@@ -28,7 +29,12 @@ function RenderLogin (h, state) {
     type: 'button',
     value: 'Log In',
     onclick: function () {
-      login()
+      login(function (err, path) {
+        if (err) {
+          console.log(err)
+        }
+        LoginEmitter.emit('loginPath', path)
+      })
     },
     style: {
       display: 'block'

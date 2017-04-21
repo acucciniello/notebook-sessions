@@ -5,7 +5,8 @@ function InitEventEmitters (AppState, EventSink, show) {
   // create emitters object that pulls in place-emitter
   // what we want is an emitter that redirects page
   var emitters = {
-    signup: require('../signup/signup-emitter.js')(AppState, EventSink, show)
+    signup: require('../signup/signup-emitter.js')(AppState, EventSink, show),
+    login: require('../login/login-emitter.js')(AppState, EventSink, show)
   }
 
   // attach emitter to the state

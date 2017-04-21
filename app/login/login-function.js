@@ -1,7 +1,7 @@
 var xhr = require('xhr')
 module.exports = loginFunction
 
-function loginFunction () {
+function loginFunction (cb) {
   var logInInfo = {
     'email': ' ',
     'password': ' '
@@ -19,10 +19,7 @@ function loginFunction () {
     window.sessionStorage.setItem('token', token)
     window.sessionStorage.setItem('userid', uid)
     if (token !== undefined && uid !== undefined) {
-      const path = 'http://localhost:3000/thoughts'
-      console.log('go to ' + path)
-      // state.path = /thoughts and then update page
-      // TODO: redirect to /thoughts
+      cb(null, '/thoughts')
     }
   })
   return
