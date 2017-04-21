@@ -5,9 +5,9 @@ module.exports = {
 }
 
 function RenderSignup (h, state) {
-  console.log(state)
-  console.log('state in signup render')
   var signupStyle = style[state.viewport] || style.base
+  var SignupEmitter = state.emitters.signup
+
   // create two text areas and a button in a div
   var emailBox = h('input', {
     type: 'text',
@@ -29,7 +29,12 @@ function RenderSignup (h, state) {
     type: 'button',
     value: 'Sign Up',
     onclick: function () {
-      signup(state)
+      signup(function (err, path) {
+        if (err) {
+          console.log(err)
+        }
+        SignupEmitter.emit('signupPath', path)
+      })
     },
     style: {
       display: 'block'
