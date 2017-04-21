@@ -7,6 +7,8 @@ var makeResponsive = require('./responsive/make-responsive.js')
 var initializeState = require('./initial-state/initialize-state.js')
 var initSinglePageApp = require('./single-page/init-single-page-app.js')
 var initRenderLoop = require('./render/init-render-loop.js')
+var initEventEmitters = require('./event-emitters/init-event-emitters.js')
+var EventSink = require('./event-sink/event-sink.js')
 
 module.exports = InitApp
 
@@ -31,6 +33,7 @@ function InitApp (initialState, onStateChange) {
     AppState.set('path', path)
     loop.update(AppState.get())
   })
+  initEventEmitters(AppState, EventSink, show)
 
   require('catch-links')(appElement, show)
 

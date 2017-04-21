@@ -1,9 +1,7 @@
 var xhr = require('xhr')
 module.exports = signupFunction
 
-function signupFunction (state) {
-  console.log(state)
-  console.log('state in signup button')
+function signupFunction (cb) {
   var singUpInfo = {
     'email': ' ',
     'password': ' '
@@ -21,12 +19,7 @@ function signupFunction (state) {
     window.sessionStorage.setItem('token', token)
     window.sessionStorage.setItem('userid', uid)
     if (token !== undefined && uid !== undefined) {
-      const path = 'http://localhost:3000/thoughts'
-      console.log('go to ' + path)
-      console.log(state)
-      state.set('path', '/thoughts')
-      // state.path = /thoughts and then update page
-      // TODO: redirect to /thoughts
+      cb(null, '/thoughts')
     }
   })
   return
