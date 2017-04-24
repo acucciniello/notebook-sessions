@@ -13,17 +13,13 @@ function RenderSignup (h, state) {
     type: 'text',
     name: 'email',
     id: 'email',
-    style: {
-      display: 'block'
-    }
+    placeholder: 'Email'
   }, 'email')
   var passwordBox = h('input', {
     type: 'text',
     name: 'password',
     id: 'password',
-    style: {
-      display: 'block'
-    }
+    placeholder: 'Password'
   }, 'password')
   var submitButton = h('button', {
     type: 'button',
@@ -35,9 +31,6 @@ function RenderSignup (h, state) {
         }
         SignupEmitter.emit('signupPath', path)
       })
-    },
-    style: {
-      display: 'block'
     }
   }, 'Sign Up')
 
