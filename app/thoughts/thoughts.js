@@ -10,10 +10,7 @@ function RenderThoughts (h, state) {
   var ThoughtBox = h('textarea', {
     type: 'text',
     id: 'ThoughtBox',
-    placeholder: 'Write your thoughts here to clear your mind...',
-    style: {
-      display: 'block'
-    }
+    placeholder: 'Write your thoughts here to clear your mind...'
   })
   var submitButton = h('button', {
     type: 'button',
@@ -21,9 +18,6 @@ function RenderThoughts (h, state) {
     name: 'Save Your Thoughts',
     onclick: function () {
       sendThoughts()
-    },
-    style: {
-      display: 'block'
     }
   }, 'Save Thought')
 

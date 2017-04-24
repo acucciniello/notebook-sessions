@@ -1,0 +1,38 @@
+body {
+  font-family: "DIN Web", "Hiragino Sans GB", STXihei, 华文细黑, "Microsoft YaHei", 微软雅黑, sans-serif;
+}
+
+.login-box, .signup-box, .thoughts-page {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform: -webkit-translate(-50%, -50%);
+  transform: -moz-translate(-50%, -50%);
+  transform: -ms-translate(-50%, -50%);
+}
+
+input {
+  display: block
+}
+
+button {
+  color: #fff;
+  display: block;
+  text-transform: uppercase;
+  background-color: #21ce99;
+  border-color: #21ce99;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  line-height: 1.33333333;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+img.nb {
+    max-width: 100%!important;
+    height: auto!important;
+}
