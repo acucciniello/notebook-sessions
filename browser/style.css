@@ -33,6 +33,30 @@ button {
 }
 
 img.nb {
-    max-width: 100%!important;
-    height: auto!important;
+  max-width: 100%!important;
+  height: auto!important;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+  width: auto;
+  background-color: rgba(0,0,0,0);
+  overflow: hidden;
+  position: fixed;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+/* Style the links inside the navigation bar */
+.topnav p{
+  float: center!important;
+  display: block;
+  color: #fff;
+  line-height: 100px;
+  text-align: center!important;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 25px;
 }
