@@ -9,6 +9,9 @@ function RenderLogin (h, state) {
   var loginStyle = style[state.viewport] || style.base
   var LoginEmitter = state.emitters.login
   // create two text areas and a button in a div
+  var loginLetters = h('p', {
+    className: 'loginLetters'
+  }, 'Login Here!')
   var emailBox = h('input', {
     type: 'text',
     name: 'email',
@@ -38,6 +41,6 @@ function RenderLogin (h, state) {
   var renderedLogin = h('div', {
     className: 'login-box',
     style: loginStyle
-  }, [emailBox, passwordBox, submitButton])
+  }, [loginLetters, emailBox, passwordBox, submitButton])
   return renderedLogin
 }

@@ -81,4 +81,8 @@ br {
   content: " ";
 }
 
+.signupLetters, .loginLetters {
+  color: #76323F
+}
+
 
