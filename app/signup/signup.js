@@ -9,6 +9,9 @@ function RenderSignup (h, state) {
   var SignupEmitter = state.emitters.signup
 
   // create two text areas and a button in a div
+  var signupLetters = h('p', {
+    className: 'signupLetters'
+  }, 'Signup Here!')
   var emailBox = h('input', {
     type: 'text',
     name: 'email',
@@ -38,6 +41,6 @@ function RenderSignup (h, state) {
   var renderedSignup = h('div', {
     className: 'signup-box',
     style: signupStyle
-  }, [emailBox, passwordBox, submitButton])
+  }, [signupLetters, emailBox, passwordBox, submitButton])
   return renderedSignup
 }
