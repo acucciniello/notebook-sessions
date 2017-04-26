@@ -7,28 +7,52 @@ module.exports = {
 
 function RenderHome (h, state) {
   var homePageStyle = style[state.viewport] || style.base
-  // var LoginEmitter = state.emitters.login
-  // create two text areas and a button in a div
+  var HomeLoginEmitter = state.emitters.homeLogin
+  var HomeSignupEmitter = state.emitters.homeSignup
+
   var top = h('p', {
+    className: 'nb-sess'
   }, 'notebook-sessions')
-  var topDiv = h('div', {
-    className: 'topdiv',
-    id: 'myTopDiv'
-  }, [top])
-  var nbImage = h('img', {
-    className: 'nb',
-    src: 'https://s3.amazonaws.com/notebook-sessions/notebook_sessions.jpeg',
-    alt: 'notebook picture'
-  }, 'notebook-picture')
-  var bottom = h('p', {
-  }, 'Write Down Your Problems with a Worry in the World')
+
+  var br = h('br', {})
+  var signup = h('button', {
+    type: 'button',
+    value: 'Sign Up',
+    className: 'homeSignupButton',
+    onclick: function () {
+      HomeSignupEmitter.emit('homeSignupPath', '/signup')
+    }
+  }, 'Sign Up')
+
+  var login = h('button', {
+    type: 'button',
+    value: 'Log In',
+    className: 'homeLoginButton',
+    onclick: function () {
+      HomeLoginEmitter.emit('homeLoginPath', '/login')
+    }
+  }, 'Log In')
+
+  var buttonsDiv = h('div', {
+    className: 'buttonsDiv'
+  }, [signup, br, login])
+
+  var bottom1 = h('p', {
+    className: 'motto1'
+  }, 'Write Down Your Problems')
+
+  var bottom2 = h('p', {
+    className: 'motto2'
+  }, 'Without a Worry in the World')
+
   var bottomDiv = h('div', {
-    className: 'bottomdiv',
-    id: 'myBottomDiv'
-  }, [bottom])
+    className: 'bottomDiv'
+  }, [bottom1, br, bottom2])
+
   var renderedHome = h('div', {
     className: 'homepage',
     style: homePageStyle
-  }, [topDiv, nbImage, bottomDiv])
+  }, [top, buttonsDiv, bottomDiv])
+
   return renderedHome
 }

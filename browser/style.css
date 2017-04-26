@@ -1,5 +1,10 @@
 body {
   font-family: "DIN Web", "Hiragino Sans GB", STXihei, 华文细黑, "Microsoft YaHei", 微软雅黑, sans-serif;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-image: url(https://s3.amazonaws.com/notebook-sessions/notebook_sessions.jpeg);
 }
 
 .login-box, .signup-box, .thoughts-page {
@@ -16,12 +21,30 @@ input {
   display: block
 }
 
+.buttonsDiv {
+  text-align: center!important;
+  position: absolute!important;
+  top: 50%!important;
+  left: 50%!important;
+}
+
+
+button.homeLoginButton {
+  width: 75px;
+  height: 20px;
+}
+
+button.homeSignupButton {
+  width: 75px;
+  height: 20px;
+} 
+
 button {
   color: #fff;
   display: block;
   text-transform: uppercase;
-  background-color: #21ce99;
-  border-color: #21ce99;
+  background-color: #76323F;
+  border-color: #76323F;
   cursor: pointer;
   border: 1px solid transparent;
   text-align: center;
@@ -32,31 +55,30 @@ button {
   transition: color 0.15s;
 }
 
-img.nb {
-  max-width: 100%!important;
-  height: auto!important;
+.nb-sess{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #76323F;
+  font-size: 2.6vw;
 }
 
-/* Add a black background color to the top navigation */
-.topnav {
-  width: auto;
-  background-color: rgba(0,0,0,0);
-  overflow: hidden;
-  position: fixed;
-  border-top-color: transparent;
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
+.bottomDiv {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #76323F;
+  font-size: 2.6vw;
 }
 
-/* Style the links inside the navigation bar */
-.topnav p{
-  float: center!important;
+br {
   display: block;
-  color: #fff;
-  line-height: 100px;
-  text-align: center!important;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 25px;
+  margin-top: 10px;
+  content: " ";
 }
+
+
