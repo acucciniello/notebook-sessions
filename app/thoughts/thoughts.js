@@ -16,6 +16,7 @@ function RenderThoughts (h, state) {
     type: 'button',
     value: 'Save Your Thoughts',
     name: 'Save Your Thoughts',
+    className: 'thoughtsButton',
     onclick: function () {
       sendThoughts()
     }

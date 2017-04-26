@@ -24,6 +24,7 @@ function RenderLogin (h, state) {
   var submitButton = h('button', {
     type: 'button',
     value: 'Log In',
+    className: 'loginButton',
     onclick: function () {
       login(function (err, path) {
         if (err) {

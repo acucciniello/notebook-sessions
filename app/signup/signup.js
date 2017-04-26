@@ -24,6 +24,7 @@ function RenderSignup (h, state) {
   var submitButton = h('button', {
     type: 'button',
     value: 'Sign Up',
+    className: 'signupButton',
     onclick: function () {
       signup(function (err, path) {
         if (err) {
