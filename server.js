@@ -109,12 +109,12 @@ app.post('/thoughts', jsonParser, function (req, res, next) {
   var token = req.body.token
   var userid = req.body.userid
   if (token) {
-    console.log('about to verify the token')
     jwt.verify(token, app.get('superSecret'), function (err, decoded) {
       if (err) {
         console.log('token failed to verify')
         return res.json({success: false, message: 'Failed to authenticate token.'})
       } else {
+        console.log('we verified the token: ' + token)
         req.decoded = decoded
         console.log(req.decoded)
         next()

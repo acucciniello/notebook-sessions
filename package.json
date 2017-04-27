@@ -4,11 +4,8 @@
   "description": "A Website to do free association writing for improved mindfulness",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"cd client && npm run client\"",
     "server": "browserify browser/browser.js > browser/bundle.js && node server.js",
-    "client": "budo browser/browser.js --open --live --pushstate",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "client": "budo browser/browser.js --open --live --pushstate"
   },
   "repository": {
     "type": "git",
