@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/acucciniello/notebook-sessions#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
     "catch-links": "^2.0.1",
     "dotenv": "^2.0.0",
