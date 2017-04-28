@@ -4,7 +4,7 @@
   "description": "A Website to do free association writing for improved mindfulness",
   "main": "server.js",
   "scripts": {
-    "server": "browserify browser/browser.js > browser/bundle.js && node server.js",
+    "server": "browserify browser/browser.js > browser/bundle.js && node server/server.js",
     "client": "budo browser/browser.js --open --live --pushstate"
   },
   "repository": {

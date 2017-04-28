@@ -1,65 +1,40 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const path = require('path')
-var cors = require('cors')
+var express = require('express')
+var router = new express.Router()
 var bodyParser = require('body-parser')
-var pg = require('pg')
-var format = require('pg-format')
-var jwt = require('jsonwebtoken')
+var jsonParser = bodyParser.json()
 var getTimeStamp = require('./get-timestamp.js')
 var timestamp = getTimeStamp()
-var jsonParser = bodyParser.json()
+const path = require('path')
 var bcrypt = require('bcrypt')
+var format = require('pg-format')
+var jwt = require('jsonwebtoken')
+
 var saltRounds = 10
-// var textParser = bodyParser.text()
 var thought
-var config = {
-  user: process.env.PGUSER,
-  database: process.env.PGDATABASE,
-  max: 10, // max number of clients in the pool
-  idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
-}
-var pool = new pg.Pool(config)
-var myClient
 
-pool.connect(function (err, client, done) {
-  if (err) console.log(err)
-  app.listen(3000, function () {
-    console.log('listening on 3000')
-  })
-  myClient = client
+router.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../browser/index.html'))
 })
 
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(cors())
-app.set('superSecret', process.env.SECRET)
-
-app.use(express.static('browser'))
-
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/browser/index.html'))
-})
-
-app.post('/login', jsonParser, function (req, res) {
+router.post('/login', jsonParser, function (req, res) {
   var email = req.body.email
   var password = req.body.password
-  console.log(req)
-  console.log('We received this from the client: ' + email + ' ' + password)
+  var myClient = req.app.get('postgresClient')
   var getHashedPass = format('SELECT * from accounts WHERE email = %L', email)
   myClient.query(getHashedPass, function (err, result) {
     if (err) {
       console.log(err)
+    } else if (result.rows[0] === undefined) {
+      console.log('There is an account that exists with the email provided')
+      return res.json({ error: 'There is no account that already exists with the email provided please sign in' })
     } else {
       var hash = result.rows[0].password
-      console.log(hash)
       bcrypt.compare(password, hash, function (err, response) {
         if (err) {
           console.log(err)
         } else if (response === true) {
           var uid = result.rows[0].userid
-          var token = jwt.sign(req.body, app.get('superSecret'))
-          console.log(token)
+          var token = jwt.sign(req.body, req.app.get('superSecret'))
           return res.json({
             success: true,
             message: 'Enjoy your token',
@@ -74,15 +49,15 @@ app.post('/login', jsonParser, function (req, res) {
   })
 })
 
-app.post('/signup', jsonParser, function (req, res) {
+router.post('/signup', jsonParser, function (req, res) {
   var email = req.body.email
   var password = req.body.password
-  console.log('We received this from the client: ' + email + ' ' + password)
   bcrypt.hash(password, saltRounds, function (err, hash) {
     if (err) {
       console.log(err)
     }
-    var checkEmailInfo = format('SELECT * from accounts WHERE email = %L AND password = %L', email, hash)
+    var myClient = req.app.get('postgresClient')
+    var checkEmailInfo = format('SELECT * from accounts WHERE email = %L', email)
     myClient.query(checkEmailInfo, function (err, result) {
       if (err) {
         console.log(err)
@@ -101,7 +76,7 @@ app.post('/signup', jsonParser, function (req, res) {
                 res.end('done')
               } else {
                 var uid = result.rows[0].userid
-                var token = jwt.sign(req.body, app.get('superSecret'))
+                var token = jwt.sign(req.body, req.app.get('superSecret'))
                 return res.json({
                   success: true,
                   message: 'Enjoy your token',
@@ -121,18 +96,16 @@ app.post('/signup', jsonParser, function (req, res) {
   })
 })
 
-app.post('/thoughts', jsonParser, function (req, res, next) {
+router.post('/thoughts', jsonParser, function (req, res, next) {
   var token = req.body.token
   var userid = req.body.userid
   if (token) {
-    jwt.verify(token, app.get('superSecret'), function (err, decoded) {
+    jwt.verify(token, req.app.get('superSecret'), function (err, decoded) {
       if (err) {
         console.log('token failed to verify')
         return res.json({success: false, message: 'Failed to authenticate token.'})
       } else {
-        console.log('we verified the token: ' + token)
         req.decoded = decoded
-        console.log(req.decoded)
         next()
       }
     })
@@ -146,14 +119,15 @@ app.post('/thoughts', jsonParser, function (req, res, next) {
   thought = req.body.text
   thought = "'" + thought + "'"
   res.end('done')
-  console.log('We received this from the client: ' + thought)
-  console.log(userid)
+  var myClient = req.app.get('postgresClient')
   var textToDB = format('INSERT INTO thoughts VALUES(%s, %s, %s);', timestamp, thought, userid)
   myClient.query(textToDB, function (err, result) {
     if (err) {
       console.log(err)
     }
-    console.log(result)
+    console.log('Thought was stored! ' + thought)
   })
   return
 })
+
+module.exports = router
